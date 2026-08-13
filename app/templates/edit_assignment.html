@@ -1,0 +1,109 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Assignment | StudyFlow</title>
+    <link rel="stylesheet" href="{% static 'app/style.css' %}">
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <div class="logo">StudyFlow 📚</div>
+    </nav>
+
+    <main class="container">
+
+        <section class="hero">
+            <h1>Edit Assignment ✏️</h1>
+            <p>Update your assignment details.</p>
+        </section>
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+            <label for="title">Assignment Title</label>
+            <input
+                type="text"
+                id="title"
+                name="title"
+                value="{{ assignment.title }}"
+                required
+            >
+
+
+            <label for="description">Description</label>
+
+            <textarea
+                id="description"
+                name="description"
+                required
+            >{{ assignment.description }}</textarea>
+
+
+            <label for="due_date">Due Date</label>
+
+            <input
+                type="date"
+                id="due_date"
+                name="due_date"
+                value="{{ assignment.due_date|date:'Y-m-d' }}"
+                required
+            >
+
+
+            <label for="due_time">Due Time</label>
+
+            <input
+                type="time"
+                id="due_time"
+                name="due_time"
+                value="{{ assignment.due_time|time:'H:i' }}"
+                required
+            >
+
+
+            <label for="reminder">Reminder</label>
+
+            <select id="reminder" name="reminder">
+
+                <option value="1_hour"
+                    {% if assignment.reminder == '1_hour' %}selected{% endif %}>
+                    1 hour before
+                </option>
+
+                <option value="1_day"
+                    {% if assignment.reminder == '1_day' %}selected{% endif %}>
+                    1 day before
+                </option>
+
+                <option value="2_days"
+                    {% if assignment.reminder == '2_days' %}selected{% endif %}>
+                    2 days before
+                </option>
+
+                <option value="3_days"
+                    {% if assignment.reminder == '3_days' %}selected{% endif %}>
+                    3 days before
+                </option>
+
+                <option value="none"
+                    {% if assignment.reminder == 'none' %}selected{% endif %}>
+                    No reminder
+                </option>
+
+            </select>
+
+
+            <button type="submit">
+                Save Changes
+            </button>
+
+        </form>
+
+    </main>
+
+</body>
+</html>

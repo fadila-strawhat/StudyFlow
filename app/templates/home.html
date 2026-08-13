@@ -1,0 +1,110 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StudyFlow</title>
+    <link rel="stylesheet" href="{% static 'app/style.css' %}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">StudyFlow 📚</div>
+
+        
+    </nav>
+
+
+    <main class="container">
+
+        <section class="hero">
+            <h1>Welcome to StudyFlow 👋</h1>
+            <p>Keep track of your assignments and stay on top of your studies.</p>
+        </section>
+
+
+       <div class="section-title">
+    <h2>My Assignments</h2>
+
+    <a href="{% url 'add_assignment' %}" class="add-button">
+        + Add Assignment
+    </a>
+</div>
+
+
+        <section class="assignment-grid">
+
+            {% for assignment in assignments %}
+
+                <div class="assignment-card">
+
+                    <h3>{{ assignment.title }}</h3>
+
+                    <p>{{ assignment.description }}</p>
+
+                    <p>
+                        <strong>Due:</strong>
+                        {{ assignment.due_date }}
+                    </p>
+
+    <p>
+        <strong>Time:</strong>
+        {{ assignment.due_time }}
+    </p>
+
+    <p>
+        🔔 <strong>Reminder:</strong>
+
+        {% if assignment.reminder == 'none' %}
+            No reminder
+        {% else %}
+            {{ assignment.get_reminder_time }}
+        {% endif %}
+    </p>
+
+{% if assignment.completed %}
+
+    <span class="status">
+        Completed ✓
+    </span>
+
+{% else %}
+
+    <span class="status">
+        Pending
+    </span>
+
+    <form method="POST" action="{% url 'complete_assignment' assignment.id %}">
+        {% csrf_token %}
+        <button type="submit">✓ Mark as Complete</button>
+    </form>
+   
+{% endif %} 
+
+  <a href="{% url 'edit_assignment' assignment.id %}" class="edit-button">
+    ✏️ Edit
+</a>
+               
+            <form method="POST" action="{% url 'delete_assignment' assignment.id %}">
+    {% csrf_token %}
+    <button type="submit" class="delete-button">
+        🗑️ Delete
+    </button>
+</form>
+         </div>
+            {% empty %}
+
+                <div class="empty">
+                    <p>You don't have any assignments yet 📚</p>
+                </div>
+
+            {% endfor %}
+
+        </section>
+
+    </main>
+
+
+</body>
+</html>

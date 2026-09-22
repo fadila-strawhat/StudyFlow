@@ -1,0 +1,34 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Log In | StudyFlow</title>
+    <link rel="stylesheet" href="{% static 'app/style.css' %}?v=20260922-profile">
+</head>
+<body>
+    {% include 'includes/navbar.html' %}
+    <main class="container">
+        <section class="hero">
+            <h1>Welcome Back</h1>
+            <p>Log in to manage your assignments.</p>
+        </section>
+        <form method="post">
+            {% csrf_token %}
+            {% for error in form.non_field_errors %}
+                <p class="error" role="alert">{{ error }}</p>
+            {% endfor %}
+            <label for="id_username">Username</label>
+            {{ form.username }}
+            {{ form.username.errors }}
+            <label for="id_password">Password</label>
+            {{ form.password }}
+            {{ form.password.errors }}
+            <input type="hidden" name="next" value="{{ next }}">
+            <button type="submit">Log In</button>
+        </form>
+        <p>Don't have an account? <a href="{% url 'signup' %}">Sign up</a></p>
+    </main>
+</body>
+</html>

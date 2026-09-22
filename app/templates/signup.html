@@ -4,14 +4,12 @@
 <html>
 <head>
     <title>Sign Up | StudyFlow</title>
-    <link rel="stylesheet" href="{% static 'app/style.css' %}">
+    <link rel="stylesheet" href="{% static 'app/style.css' %}?v=20260922-profile">
 </head>
 
 <body>
 
-    <nav class="navbar">
-        <div class="logo">StudyFlow 📚</div>
-    </nav>
+    {% include 'includes/navbar.html' %}
 
     <main class="container">
 
@@ -68,7 +66,7 @@
 
         <p>
             Already have an account?
-            <p>Already have an account? Login coming soon.</p>
+            <a href="{% url 'login' %}">Log in</a>
         </p>
 
     </main>

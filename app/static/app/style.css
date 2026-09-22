@@ -35,6 +35,50 @@ body {
 
 /* Main content */
 
+.navbar { flex-wrap: wrap; gap: 16px; }
+.navbar .logo { text-decoration: none; }
+.nav-links { display: flex; align-items: center; flex-wrap: wrap; gap: 20px; }
+.nav-links a { color: #4f46e5; text-decoration: none; font-weight: 600; }
+.nav-links a:hover { text-decoration: underline; }
+.nav-profile {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    min-width: 0;
+    max-width: 100%;
+    padding: 7px 16px 7px 7px;
+    border: 1px solid #e7e3ff;
+    border-radius: 999px;
+    background: #f8f7ff;
+}
+.profile-avatar {
+    display: grid;
+    place-items: center;
+    flex: 0 0 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #7262f3, #4f46e5);
+    color: #fff;
+    font-size: 18px;
+    font-weight: 700;
+    box-shadow: 0 2px 6px rgba(79, 70, 229, .18);
+}
+.profile-details { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+.nav-username {
+    display: block;
+    max-width: 160px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: #252044;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.3;
+}
+.profile-caption { color: #716a89; font-size: 11px; line-height: 1.3; }
+.navbar .nav-logout { display: flex; align-items: center; flex: 0 0 auto; margin: 0; padding: 0; background: none; border: 0; border-radius: 0; box-shadow: none; width: auto; max-width: none; }
+.navbar .nav-logout button { margin: 0; width: auto; padding: 8px 16px; }
+
 .container {
     width: 84%;
     max-width: 1100px;
@@ -317,3 +361,67 @@ form select:focus {
     text-decoration: none !important;
     transform: translateY(-2px);
 }
+/* Dashboard cards: keep inline actions separate from full-page forms. */
+.dashboard {
+    background: #f6f6ff;
+    color: #10152f;
+}
+.dashboard .navbar { padding: 28px 5%; }
+.dashboard .logo { display: flex; align-items: center; gap: 16px; font-size: 28px; }
+.logo-mark { position: relative; width: 30px; height: 30px; background: #599bff; border-radius: 2px; }
+.logo-mark::before, .logo-mark::after { content: ''; position: absolute; width: 22px; height: 22px; border-radius: 1px; }
+.logo-mark::before { background: #9854d5; left: -4px; top: -3px; opacity: .85; }
+.logo-mark::after { background: #82cf48; left: -9px; top: -7px; opacity: .9; }
+.dashboard .container { width: 90%; max-width: 1336px; margin: 38px auto 42px; }
+.dashboard .hero { padding: 48px 56px; border-radius: 18px; margin-bottom: 48px; background: #4c3fe4; }
+.dashboard .hero h1 { font-size: clamp(28px, 3.2vw, 44px); margin-bottom: 14px; }
+.dashboard .hero p { font-size: 21px; line-height: 1.5; opacity: 1; }
+.dashboard .section-title { gap: 20px; margin-bottom: 32px; }
+.dashboard .section-title h2 { font-size: 29px; }
+.dashboard .add-button { margin: 0; padding: 14px 22px; font-size: 18px; white-space: nowrap; }
+.dashboard .assignment-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 26px; }
+.dashboard .assignment-card { display: flex; flex-direction: column; min-width: 0; padding: 28px 26px; border: 1px solid #e6e6ef; border-radius: 17px; box-shadow: 0 4px 10px rgba(25, 23, 65, .055); }
+.card-heading { display: flex; align-items: flex-start; gap: 18px; margin-bottom: 22px; }
+.assignment-icon { display: grid; place-items: center; flex: 0 0 60px; height: 60px; border-radius: 11px; background: #e8f0ff; color: #347fff; }
+.assignment-icon .icon { width: 30px; height: 30px; }
+.assignment-card:nth-child(3n + 2) .assignment-icon { background: #e8f8e8; color: #3aaf46; }
+.assignment-card:nth-child(3n) .assignment-icon { background: #f4eeff; color: #8853f5; }
+.dashboard .assignment-card h3 { margin: 0; font-size: 22px; line-height: 1.45; color: #10152f; overflow-wrap: anywhere; }
+.dashboard .assignment-card p { color: #666c8e; font-size: 17px; line-height: 1.6; }
+.dashboard .card-description { margin: 0 0 24px; min-height: 82px; flex: 1; overflow-wrap: anywhere; white-space: pre-line; }
+.card-details { border-top: 1px solid #dfe1ed; padding-top: 20px; }
+.dashboard .card-details p { display: flex; align-items: flex-start; gap: 12px; margin: 0 0 12px; }
+.card-details .icon { flex: 0 0 22px; width: 22px; height: 22px; margin-top: 2px; color: #5940ff; }
+.card-details strong { color: #303654; }
+.card-footer { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px; margin-top: 22px; }
+.dashboard .status { padding: 10px 15px; border-radius: 10px; font-size: 16px; font-weight: 500; background: #fff0db; color: #bc5100; }
+.dashboard .status-completed { background: #e8f8e8; color: #247a34; }
+.card-actions { display: flex; gap: 10px; }
+.dashboard .card-actions form { display: flex; margin: 0; padding: 0; max-width: none; background: transparent; border-radius: 0; box-shadow: none; }
+.dashboard .card-action { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; margin: 0; padding: 8px; border: 0; border-radius: 10px; background: #f5f4fc; color: #49476c; cursor: pointer; text-decoration: none; transition: background .2s ease; }
+.dashboard .card-action:hover { background: #e9e6ff; transform: none; opacity: 1; }
+.dashboard .complete-action:hover { background: #e8f8e8; color: #247a34; }
+.dashboard .delete-action:hover { background: #ffe3e7; color: #c5233a; }
+.dashboard a:focus-visible, .dashboard button:focus-visible { outline: 3px solid #7867f5; outline-offset: 3px; }
+.dashboard .empty { grid-column: 1 / -1; }
+@media (max-width: 1050px) {
+    .dashboard .assignment-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 650px) {
+    .dashboard .navbar { padding: 24px 7%; }
+    .dashboard .container { margin-top: 24px; }
+    .dashboard .hero { padding: 30px 24px; margin-bottom: 30px; }
+    .dashboard .hero p { font-size: 17px; }
+    .dashboard .section-title { flex-wrap: wrap; margin-bottom: 22px; }
+    .dashboard .section-title h2 { font-size: 25px; }
+    .dashboard .add-button { font-size: 16px; }
+    .dashboard .assignment-grid { grid-template-columns: minmax(0, 1fr); gap: 20px; }
+    .dashboard .assignment-card { padding: 24px; }
+}
+
+.card-badges { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.priority { display: inline-block; padding: 10px 15px; border-radius: 10px; font-size: 16px; font-weight: 500; }
+.priority-high { background: #ffe1e6; color: #d90020; }
+.priority-medium { background: #fff0db; color: #bd5100; }
+.priority-low { background: #e7edff; color: #2852ef; }
+form .errorlist { margin: 12px 0; padding-left: 20px; color: #bd1735; }

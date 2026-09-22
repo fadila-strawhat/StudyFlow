@@ -5,12 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Assignment| StudyFlow</title>
-    <link rel="stylesheet" href="{% static 'app/style.css' %}">
+    <link rel="stylesheet" href="{% static 'app/style.css' %}?v=20260922-profile">
 </head>
 <body>
-     <nav class="navbar">
-        <div class="logo">StudyFlow 📚</div>
-    </nav>
+     {% include 'includes/navbar.html' %}
 
     <main class="container">
 
@@ -20,57 +18,10 @@
         </section>
 
         <form method="POST">
-
-    {% csrf_token %}
-
-    <label for="title">Assignment Title</label>
-    <input type="text" id="title" name="title" required>
-
-
-    <label for="description">Description</label>
-    <textarea id="description" name="description" required></textarea>
-
-
-    <label for="due_date">Due Date</label>
-    <input type="date" id="due_date" name="due_date" required>
-
-
-    <label for="due_time">Due Time</label>
-    <input type="time" id="due_time" name="due_time" required>
-
-
-    <label for="reminder">Reminder</label>
-
-    <select id="reminder" name="reminder">
-
-        <option value="1_hour" selected>
-            1 hour before
-        </option>
-
-        <option value="1_day">
-            1 day before
-        </option>
-
-        <option value="2_days">
-            2 days before
-        </option>
-
-        <option value="3_days">
-            3 days before
-        </option>
-
-        <option value="none">
-            No reminder
-        </option>
-
-    </select>
-
-
-    <button type="submit">
-        Add Assignment
-    </button>
-
-</form>
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Add Assignment</button>
+        </form>
 
     </main>
 

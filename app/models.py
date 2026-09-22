@@ -2,14 +2,27 @@ from datetime import datetime, timedelta
 
 # Create your models here.
 from django.db import models
+from django.conf import settings
 
 
 class Assignment(models.Model):
+    # Older assignments have no known owner and remain hidden from user accounts.
+    owner = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE,
+        related_name='assignments', null=True, blank=True,
+    )
     title = models.CharField(max_length=200)
     description = models.TextField()
     due_date = models.DateField()
     completed = models.BooleanField(default=False)
     due_time = models.TimeField()
+
+    PRIORITY_CHOICES = [
+        ('high', 'High Priority'),
+        ('medium', 'Medium Priority'),
+        ('low', 'Low Priority'),
+    ]
+    priority = models.CharField(max_length=6, choices=PRIORITY_CHOICES, default='medium')
 
     REMINDER_CHOICES = [
         ('none', 'No reminder'),

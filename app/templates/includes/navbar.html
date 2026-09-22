@@ -1,0 +1,21 @@
+<nav class="navbar" aria-label="Main navigation">
+    <a class="logo" href="{% url 'home' %}">StudyFlow &#128218;</a>
+    <div class="nav-links">
+        {% if user.is_authenticated %}
+            <div class="nav-profile" aria-label="Signed in as {{ user.username }}">
+                <span class="profile-avatar" aria-hidden="true">{{ user.username|first|upper }}</span>
+                <div class="profile-details">
+                    <span class="nav-username">{{ user.username }}</span>
+                    <span class="profile-caption">My account</span>
+                </div>
+            </div>
+            <form method="post" action="{% url 'logout' %}" class="nav-logout">
+                {% csrf_token %}
+                <button type="submit">Log out</button>
+            </form>
+        {% else %}
+            <a href="{% url 'signup' %}">Sign up</a>
+            <a href="{% url 'login' %}">Log in</a>
+        {% endif %}
+    </div>
+</nav>

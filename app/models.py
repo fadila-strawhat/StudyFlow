@@ -41,22 +41,14 @@ class Assignment(models.Model):
     def __str__(self):
         return self.title
 
-def get_reminder_time(self):
-        due_datetime = datetime.combine(
-            self.due_date,
-            self.due_time
-        )
+    reminder_sent_at = models.DateTimeField(null=True, blank=True)
 
-        if self.reminder == '1_hour':
-            return due_datetime - timedelta(hours=1)
+    def get_due_datetime(self):
+        from django.utils import timezone
+        return timezone.make_aware(datetime.combine(self.due_date, self.due_time))
 
-        elif self.reminder == '1_day':
-            return due_datetime - timedelta(days=1)
-
-        elif self.reminder == '2_days':
-            return due_datetime - timedelta(days=2)
-
-        elif self.reminder == '3_days':
-            return due_datetime - timedelta(days=3)
-
-        return None
+    def get_reminder_time(self):
+        offsets = {'1_hour': timedelta(hours=1), '1_day': timedelta(days=1),
+                   '2_days': timedelta(days=2), '3_days': timedelta(days=3)}
+        offset = offsets.get(self.reminder)
+        return self.get_due_datetime() - offset if offset else None

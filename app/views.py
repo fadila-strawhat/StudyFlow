@@ -56,6 +56,8 @@ def edit_assignment(request, id):
         request.POST if request.method == 'POST' else None, instance=assignment
     )
     if request.method == 'POST' and form.is_valid():
+        if {'due_date', 'due_time', 'reminder'} & set(form.changed_data):
+            form.instance.reminder_sent_at = None
         form.save()
         return redirect('home')
     return render(request, 'edit_assignment.html', {

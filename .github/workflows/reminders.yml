@@ -1,0 +1,30 @@
+name: Assignment email reminders
+on:
+  schedule:
+    - cron: '7,22,37,52 * * * *'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: assignment-email-reminders
+  cancel-in-progress: false
+jobs:
+  reminders:
+    if: github.repository == 'fadila-strawhat/StudyFlow'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.14'
+          cache: pip
+      - run: python -m pip install -r requirements.txt
+      - name: Send due reminders
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          EMAIL_HOST_USER: ${{ secrets.EMAIL_HOST_USER }}
+          EMAIL_HOST_PASSWORD: ${{ secrets.EMAIL_HOST_PASSWORD }}
+        run: |
+          test -n "$DATABASE_URL" || { echo 'Set the DATABASE_URL repository secret'; exit 1; }
+          python manage.py send_reminders

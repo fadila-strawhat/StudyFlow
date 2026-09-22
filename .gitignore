@@ -9,3 +9,5 @@ staticfiles/
 media/
 .codex/
 .agents/
+node_modules/
+.neon
